@@ -31,23 +31,23 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Build Docker Image
-        run: docker build -t lokmen66/front .
+        run: docker build -t khedri01/test .
   Push_container:
     needs: Build_Docker_file
     runs-on: self-hosted
     steps:
       - name: Publish image to Docker Hub
-        run: docker push lokmen66/front:latest
+        run: docker push khedri01/test:latest
 
   deploy:
     needs:  Push_container
     runs-on: self-hosted
     steps:
       - name: Pull image from Docker Hub
-        run: docker pull lokmen66/front:latest
+        run: docker pull khedri01/test:latest
 
       - name: Delete Old container
         run: docker rm -f front-container || true
 
       - name: Run Docker container
-        run: docker run -d -p 80:80 --name front-container lokmen66/front:latest 
+        run: docker run -d -p 80:80 --name front-container khedri01/test:latest 
